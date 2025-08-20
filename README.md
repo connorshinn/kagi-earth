@@ -50,12 +50,13 @@ Once added, open a new tab and navigate to https://kagi.com to see your new sear
 > [!IMPORTANT]
 > The satellite imagery can make some of the text elements on the home page difficult to read. You'll likely need to add CSS overlays or adjustments for better readability, similar to the example below:  
 ```css
-/* Example: Add a semi-transparent overlay for better text contrast */
+/* Update background */
 body:has(.clouds) {
   background-image: url("https://[your-worker-name].workers.dev/");
   background-size: cover;
   background-position: center;
 
+/* Add background/blur to search options (below search bar) */
   .landing-category-select._0_land_cat_box {
     background-color: rgba(0, 0, 0, 0.3);
     -webkit-backdrop-filter: blur(5px);
@@ -65,6 +66,37 @@ body:has(.clouds) {
     border-radius: 10px;
     padding: 0px 10px 15px 10px;
   }
+/* Add border/shadow to Kagi logo and other SVG elements */
+  &:not(.adv_search_btn) svg {
+    -webkit-filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
+    filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
+  }
+
+  .logo svg path {
+    stroke: #1e2028;
+    stroke-width: 1px;
+  }
+
+/* Add background to footer */
+  .footer {
+    .footerInner {
+      background-color: rgba(0, 0, 0, 0.3);
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
+      min-height: unset;
+      text-shadow: 0.05em 0 black, 0 0.05em black, -0.05em 0 black, 0 -0.05em black, 
+                   -0.05em -0.05em black, -0.05em 0.05em black, 0.05em -0.05em black, 0.05em 0.05em black;
+    }
+
+    .copyright {
+      color: #fff;
+    }
+
+    a {
+      filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
+    }
+  }
+
 }
 ```
 
