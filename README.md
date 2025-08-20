@@ -70,7 +70,7 @@ body:has(.clouds) {
 
 #### Complete Theme
 
-This repository includes `custom.css`, an add-on to [pdanzma's excellent Glassmorphism theme](https://github.com/pdanzma/kagi-css) that:
+This repository includes `custom.css`, an add-on to [pdanzma's excellent Glassmorphism theme](https://github.com/pdanzma/kagi-css) with more comprehensive CSS rules that:
 - Ensures text readability with proper overlays and shadows
 - Styles homepage elements to work with most Google Earth backgrounds
 
