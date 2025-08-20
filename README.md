@@ -8,7 +8,7 @@ A lightweight API that serves random satellite imagery from Google Earth for use
 
 Creates a Cloudflare Worker that randomly selects and serves images from Google's Pretty Earth collection. Designed specifically to work with Kagi Search's custom CSS feature to enable Google Earth images as home page backgrounds that change on every page load:
 
-<img align="center" src="/images/kagi-earth-screenshot-1.png" width="500"><img align="center" src="/images/kagi-earth-screenshot-2.png" width="500"><img align="center" src="/images/kagi-earth-screenshot-3.png" width="500"><img align="center" src="/images/kagi-earth-screenshot-4.png" width="500">
+<img align="center" src="/images/kagi-earth-screenshot-1.png" width="410"><img align="center" src="/images/kagi-earth-screenshot-2.png" width="410"><img align="center" src="/images/kagi-earth-screenshot-3.png" width="410"><img align="center" src="/images/kagi-earth-screenshot-4.png" width="410">
 
 ## Quick Start
 
