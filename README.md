@@ -45,7 +45,7 @@ body:has(.clouds) {
 }
 ```
 
-The background will be a different random satellite image on each page load!
+Once added, open a new tab and navigate to https://kagi.com to see your new search page!
 
 > [!IMPORTANT]
 > The satellite imagery can make some of the text elements on the home page difficult to read. You'll likely need to add CSS overlays or adjustments for better readability, similar to the example below:  
