@@ -26,7 +26,7 @@ Creates a Cloudflare Worker that randomly selects and serves images from Google'
 ### Option 2: Manual Deploy
 
 1. Copy the `worker.js` file from this repository
-2. Go to Cloudflare Dashboard → [Workers & Pages](https://dash.cloudflare.com/?to=/:account/workers-and-pages) → Create → Select the ["Start with Hello World" template](https://dash.cloudflare.com/](https://dash.cloudflare.com/?to=/:account/workers-and-pages/static-templates/hello-world)
+2. Go to Cloudflare Dashboard → [Workers & Pages](https://dash.cloudflare.com/?to=/:account/workers-and-pages) → Create → Select the ["Start with Hello World" template](https://dash.cloudflare.com/?to=/:account/workers-and-pages/static-templates/hello-world)
 4. Paste the code from worker.js and click Deploy
 
 ## Step 2: Update Kagi CSS
