@@ -2,15 +2,15 @@ name = "kagi-earth"
 main = "worker.js"
 compatibility_date = "2025-08-15"
 
-# Your Cloudflare account ID (found in dashboard)
-# account_id = "91f2968881019d0b6baa327cdd1271ce"
-
 # Custom domain (optional)
 # route = "backgrounds.yourdomain.com/*"
 
-# Or use workers.dev subdomain (free)
 workers_dev = true
 
 [env.production]
 name = "kagi-earth"
 # route = "backgrounds.yourdomain.com/*"
+
+[observability]
+enabled = true
+head_sampling_rate = 1 # optional. default = 1.
