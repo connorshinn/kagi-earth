@@ -10,7 +10,7 @@ Creates a Cloudflare Worker that randomly selects and serves images from Google'
 
 <img align="center" src="/images/kagi-earth-screenshot-1.png" width="410"><img align="center" src="/images/kagi-earth-screenshot-2.png" width="410"><img align="center" src="/images/kagi-earth-screenshot-3.png" width="410"><img align="center" src="/images/kagi-earth-screenshot-4.png" width="410">
 
-## Quick Start
+## Step 1: Deploy Cloudflare Worker
 
 ### Option 1: One-Click Deploy (Recommended)
 
@@ -29,7 +29,7 @@ Creates a Cloudflare Worker that randomly selects and serves images from Google'
 2. Go to Cloudflare Dashboard → [Workers & Pages](https://dash.cloudflare.com/?to=/:account/workers-and-pages) → Create → Select the ["Start with Hello World" template](https://dash.cloudflare.com/](https://dash.cloudflare.com/?to=/:account/workers-and-pages/static-templates/hello-world)
 4. Paste the code from worker.js and click Deploy
 
-## Usage
+## Step 2: Update Kagi CSS
 
 ### In Kagi Search
 
@@ -39,7 +39,7 @@ Add this to your [Kagi Custom CSS](https://kagi.com/settings?p=custom_css):
 
 ```css
 body:has(.clouds) {
-  background-image: url('https://[your-worker-name].workers.dev/');
+  background-image: url("https://[your-worker-name].workers.dev/");
   background-size: cover;
   background-position: center;
 }
@@ -47,14 +47,12 @@ body:has(.clouds) {
 
 The background will be a different random satellite image on each page load!
 
-#### ⚠️ Important: Text Readability
-
-The satellite imagery can make some of the text elements on the home page difficult to read. You'll likely need to add CSS overlays or adjustments for better readability. See additional Complete Theme section below for more details. 
-
+> [!IMPORTANT]
+> The satellite imagery can make some of the text elements on the home page difficult to read. You'll likely need to add CSS overlays or adjustments for better readability, similar to the example below:  
 ```css
 /* Example: Add a semi-transparent overlay for better text contrast */
 body:has(.clouds) {
-  background-image: url("https://kagi-earth.connor-shinn.workers.dev");
+  background-image: url("https://[your-worker-name].workers.dev/");
   background-size: cover;
   background-position: center;
 
@@ -78,18 +76,11 @@ This repository includes `custom.css`, an add-on to [pdanzma's excellent Glassmo
 
 To use kagi-earth with Glassmorphism, simply append the `custom.css` to the end of the Glassmorphism CSS, making sure to replace `[your-worker-URL]` with your Cloudflare Worker URL.
 
-##Contributing
+## Contributing
 This is still very much a work in progress, so please feel free to open an issue or pull request if you encounter any bugs or would like to contribute. 
-
-Credits
-Created by pdanzma. Inspired by modern search UIs (e.g., Google and Brave) with many original touches.
 
 ## Credits
 
 - Inspired by satellite imagery from [Google Earth](https://earth.google.com/) and the Pretty Earth collection
 - Custom CSS file based on [pdanzma's Glassmorphism theme](https://github.com/pdanzma/kagi-css)
 - Built for the [Kagi Search](https://kagi.com/) community
-
----
-
-*Enjoy beautiful Earth views with every search! 🌎*
