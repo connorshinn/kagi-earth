@@ -2,7 +2,7 @@
 
 async function fetchPrettyEarthData(id) {
   const url = `https://www.gstatic.com/prettyearth/assets/data/v3/${id}.json`;
-  const response = await fetch(url);
+  const response = await fetch(url); 
   
   if (!response.ok) {
     return null;
