@@ -114,7 +114,40 @@ function getRandomIdFromList() {
   return ALLOWED_IDS[randomIndex];
 }
 
+// Proxy the image through the worker instead of redirecting (fixes CORS)
+async function proxyImage(imageId) {
+  const imageUrl = getGstaticUrl(imageId);
+  const imageResponse = await fetch(imageUrl);
+
+  if (!imageResponse.ok) {
+    return new Response('Failed to fetch image', { status: 502 });
+  }
+
+  return new Response(imageResponse.body, {
+    status: 200,
+    headers: {
+      'Content-Type': imageResponse.headers.get('Content-Type') || 'image/jpeg',
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+      'Access-Control-Allow-Origin': '*',
+      'X-Pretty-Earth-ID': imageId.toString()
+    }
+  });
+}
+
 async function handleRequest(request) {
+  // Handle CORS preflight requests
+  if (request.method === 'OPTIONS') {
+    return new Response(null, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': '*',
+      }
+    });
+  }
+
   // Parse the URL
   const url = new URL(request.url);
   const pathname = url.pathname;
@@ -135,20 +168,7 @@ async function handleRequest(request) {
       
       // For redirect mode, we don't need to fetch the JSON data unless metadata is requested
       if (metadata !== 'true' && info !== 'true') {
-        // Directly redirect to the image URL on gstatic.com
-        const imageUrl = getGstaticUrl(imageId);
-        
-        // Return redirect response with no-cache headers
-        return new Response(null, {
-          status: 302,
-          headers: {
-            'Location': imageUrl,
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0',
-            'Access-Control-Allow-Origin': '*'
-          }
-        });
+        return await proxyImage(imageId);
       }
       
       // Fetch data only if metadata is needed
@@ -182,21 +202,9 @@ async function handleRequest(request) {
       // Get a random ID from our limited list
       imageId = getRandomIdFromList();
       
-      // If not requesting metadata, redirect to the image
+      // If not requesting metadata, proxy the image
       if (metadata !== 'true' && info !== 'true') {
-        const imageUrl = getGstaticUrl(imageId);
-        
-        return new Response(null, {
-          status: 302,
-          headers: {
-            'Location': imageUrl,
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0',
-            'Access-Control-Allow-Origin': '*',
-            'X-Pretty-Earth-ID': imageId.toString()
-          }
-        });
+        return await proxyImage(imageId);
       }
       
       // Fetch data for metadata
@@ -237,19 +245,8 @@ async function handleRequest(request) {
       });
     }
     
-    // Default case: redirect to a random image from our limited set
-    const imageUrl = getGstaticUrl(imageId);
-    return new Response(null, {
-      status: 302,
-      headers: {
-        'Location': imageUrl,
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-        'Access-Control-Allow-Origin': '*',
-        'X-Pretty-Earth-ID': imageId.toString()
-      }
-    });
+    // Default case: proxy a random image from our limited set
+    return await proxyImage(imageId);
     
   } catch (error) {
     console.error('Error serving Pretty Earth image:', error);
